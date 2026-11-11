@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101014" />
+  <meta name="description" content="Una pequeña idea para un detalle especial." />
+  <title>Una pequeña idea...</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap');
+    :root { --pink:#ff4f83; --orange:#ffad45; --ink:#101014; --paper:#fff4e8; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; color:var(--paper); background:var(--ink); font-family:'DM Sans',sans-serif; overflow-x:hidden;
+      background-image:radial-gradient(ellipse at 15% 10%,rgba(255,79,131,.22),transparent 35%),radial-gradient(ellipse at 90% 85%,rgba(255,173,69,.16),transparent 35%); }
+    .noise { position:fixed; inset:0; pointer-events:none; opacity:.08; z-index:5; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"); }
+    .wrap { width:min(1120px,92%); margin:auto; }
+    nav { display:flex; justify-content:space-between; align-items:center; padding:26px 0; font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; }
+    .brand { font-weight:800; } .brand span { color:var(--pink); }
+    .tag { color:#bcb4b0; border:1px solid #ffffff2b; padding:8px 12px; border-radius:30px; }
+    main { min-height:calc(100vh - 80px); display:grid; grid-template-columns:1.05fr .95fr; align-items:center; gap:30px; padding:35px 0 70px; }
+    .eyebrow { color:var(--orange); text-transform:uppercase; letter-spacing:.22em; font-size:.75rem; font-weight:700; }
+    h1 { font-family:'Barlow Condensed',sans-serif; font-size:clamp(4.5rem,10vw,8.7rem); line-height:.82; letter-spacing:-.045em; text-transform:uppercase; margin:20px 0 25px; }
+    h1 .line2 { color:var(--pink); display:block; }
+    .intro { max-width:490px; color:#d6cbc5; font-size:1.05rem; line-height:1.8; }
+    .intro strong { color:white; }
+    .actions { display:flex; flex-wrap:wrap; gap:12px; margin-top:32px; }
+    button { border:0; cursor:pointer; font:700 .9rem 'DM Sans',sans-serif; padding:15px 22px; border-radius:5px; transition:transform .2s,filter .2s; }
+    button:hover { transform:translateY(-3px); filter:brightness(1.08); }
+    .primary { color:#171116; background:linear-gradient(100deg,var(--pink),var(--orange)); box-shadow:0 10px 30px #ff4f8330; }
+    .secondary { color:var(--paper); background:#ffffff0d; border:1px solid #ffffff30; }
+    .tiny { margin-top:18px; color:#938b88; font-size:.75rem; }
+    .art { position:relative; min-height:520px; display:grid; place-items:center; }
+    .sun { position:absolute; width:min(390px,85vw); aspect-ratio:1; border-radius:50%; background:linear-gradient(145deg,#ffb14a,#ff4f83 70%); opacity:.95; }
+    .sun:after { content:""; position:absolute; inset:13%; border:1px solid #fff8; border-radius:50%; }
+    .city { position:absolute; bottom:7%; width:100%; height:58%; display:flex; align-items:end; justify-content:center; gap:8px; overflow:hidden; }
+    .building { background:linear-gradient(180deg,#29212d,#17151c); border:1px solid #ffffff20; width:13%; height:var(--h); position:relative; box-shadow:0 0 25px #0008; }
+    .building:before { content:""; position:absolute; inset:12px 8px; background:repeating-linear-gradient(90deg,#ffcf7b 0 4px,transparent 4px 13px),repeating-linear-gradient(0deg,transparent 0 13px,#ffcf7b 13px 17px); opacity:.6; }
+    .building:nth-child(2n) { transform:skewY(-3deg); }
+    .poster { position:relative; z-index:2; width:min(330px,75%); aspect-ratio:.72; transform:rotate(3deg); border:7px solid #17151c; border-radius:4px; overflow:hidden; box-shadow:0 25px 70px #000b; background:linear-gradient(160deg,#ffca72 0%,#f46a83 42%,#46304f 72%,#15151b 100%); }
+    .poster:before { content:""; position:absolute; inset:0; background:linear-gradient(transparent 35%,#111018dd 100%); }
+    .poster-top { position:absolute; top:16px; left:16px; right:16px; font-size:.55rem; letter-spacing:.22em; font-weight:800; color:#21141b; }
+    .poster-title { position:absolute; z-index:1; left:12px; right:12px; bottom:27px; text-align:center; font:900 clamp(2.7rem,6vw,4.5rem)/.76 'Barlow Condensed',sans-serif; text-transform:uppercase; color:#fff5e9; text-shadow:3px 4px 0 #8d345d; }
+    .poster-title span { display:block; color:#ffd06d; font-size:.48em; letter-spacing:.18em; margin-top:15px; }
+    .sticker { position:absolute; z-index:3; right:2%; top:12%; width:105px; height:105px; border-radius:50%; display:grid; place-items:center; text-align:center; padding:12px; background:#fff0d9; color:#21151b; font:800 .78rem 'DM Sans'; transform:rotate(12deg); box-shadow:0 8px 20px #0005; }
+    .caption { position:absolute; bottom:0; right:5%; color:#d9c8c0; font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; }
+    .note { display:none; margin-top:25px; max-width:490px; padding:18px 20px; border-left:3px solid var(--orange); background:#ffffff0c; line-height:1.7; color:#f5e9df; }
+    .note.show { display:block; animation:rise .45s ease both; }
+    @keyframes rise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+    footer { padding:18px 0 28px; border-top:1px solid #ffffff1a; color:#8f8581; font-size:.72rem; display:flex; justify-content:space-between; gap:12px; }
+    @media(max-width:760px) { main { grid-template-columns:1fr; padding-top:45px; } .art { min-height:430px; grid-row:1; } .copy { grid-row:2; } h1 { font-size:clamp(4.5rem,18vw,7rem); } nav { padding:20px 0; } .caption { right:0; } }
+    @media(max-width:420px) { .art { min-height:360px; } .sticker { width:82px;height:82px;font-size:.65rem; } footer { flex-direction:column; } }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="wrap">
+    <nav><div class="brand">UNA IDEA <span>POR AHÍ</span></div><div class="tag">Solo una sugerencia ✨</div></nav>
+    <main>
+      <section class="copy">
+        <div class="eyebrow">Pensando en detalles memorables…</div>
+        <h1>Hay regalos<br><span class="line2">y regalos.</span></h1>
+        <p class="intro">
+          Hay detalles bonitos, detalles inesperados y luego están esos que te hacen
+          decir: <strong>«No puedo creer que se acordara de eso».</strong>
+        </p>
+        <p class="intro">
+          Yo, por ejemplo, soy bastante fan de las aventuras, las ciudades llenas de luces
+          y los planes que prometen desaparecer unas cuantas horas del mundo real. Solo dejo la idea por aquí. 😌
+        </p>
+        <div class="actions">
+          <button class="primary" onclick="showHint()">¿Una pequeña pista?</button>
+          <button class="secondary" onclick="showThanks()">Qué misterioso...</button>
+        </div>
+        <div id="note" class="note" aria-live="polite"></div>
+        <div class="tiny">No es indirecta si no digo nombres… ¿cierto? 👀</div>
+      </section>
+      <section class="art" aria-label="Ilustración de una ciudad tropical de videojuego">
+        <div class="sun"></div>
+        <div class="city">
+          <div class="building" style="--h:44%"></div><div class="building" style="--h:68%"></div>
+          <div class="building" style="--h:52%"></div><div class="building" style="--h:82%"></div>
+          <div class="building" style="--h:61%"></div><div class="building" style="--h:48%"></div>
+          <div class="building" style="--h:73%"></div>
+        </div>
+        <div class="poster">
+          <div class="poster-top">SALUDOS DESDE EL PARAÍSO</div>
+          <div class="poster-title">VICE<br>CITY<span>UNA NUEVA AVENTURA</span></div>
+        </div>
+        <div class="sticker">PRÓXIMA<br>PARADA<br>🌴</div>
+        <div class="caption">Somewhere in Vice City…</div>
+      </section>
+    </main>
+    <footer><span>Hecho con cariño y una indirecta muy sutil.</span><span>Una idea por ahí © 2026</span></footer>
+  </div>
+  <script>
+    const note = document.getElementById('note');
+    function showHint() {
+      note.innerHTML = 'Pista: una saga legendaria, una ciudad llamada Vice City y una sexta entrega que tiene a medio planeta esperando… 🌴🎮<br><span style="color:#ffbd70">Pero bueno, cambiemos de tema. Jajaja.</span>';
+      note.classList.add('show');
+    }
+    function showThanks() {
+      note.innerHTML = 'Jajaja, no hay presión. Lo bonito es la intención… aunque admito que hay una idea que me haría muchísima ilusión. 🤭';
+      note.classList.add('show');
+    }
+  </script>
+</body>
+</html>
